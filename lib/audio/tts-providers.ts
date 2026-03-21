@@ -373,7 +373,9 @@ async function generateMiniMaxTTS(
     throw new Error('MiniMax TTS error: invalid hex audio payload length');
   }
 
-  const audio = new Uint8Array(cleanedHex.match(/.{1,2}/g)?.map((byte: string) => parseInt(byte, 16)) || []);
+  const audio = new Uint8Array(
+    cleanedHex.match(/.{1,2}/g)?.map((byte: string) => parseInt(byte, 16)) || [],
+  );
   return {
     audio,
     format: data?.extra_info?.audio_format || config.format || 'mp3',

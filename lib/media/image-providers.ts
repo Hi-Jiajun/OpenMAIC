@@ -12,7 +12,10 @@ import type {
 import { generateWithSeedream, testSeedreamConnectivity } from './adapters/seedream-adapter';
 import { generateWithQwenImage, testQwenImageConnectivity } from './adapters/qwen-image-adapter';
 import { generateWithNanoBanana, testNanoBananaConnectivity } from './adapters/nano-banana-adapter';
-import { generateWithMiniMaxImage, testMiniMaxImageConnectivity } from './adapters/minimax-image-adapter';
+import {
+  generateWithMiniMaxImage,
+  testMiniMaxImageConnectivity,
+} from './adapters/minimax-image-adapter';
 
 export const IMAGE_PROVIDERS: Record<ImageProviderId, ImageProviderConfig> = {
   seedream: {

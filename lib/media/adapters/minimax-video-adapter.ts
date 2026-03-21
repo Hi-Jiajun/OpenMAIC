@@ -143,13 +143,17 @@ export async function generateWithMiniMaxVideo(
     }
 
     if (result.status === 'Fail') {
-      throw new Error(`MiniMax Video generation failed: ${result.base_resp?.status_msg || 'unknown'}`);
+      throw new Error(
+        `MiniMax Video generation failed: ${result.base_resp?.status_msg || 'unknown'}`,
+      );
     }
 
     attempts++;
   }
 
-  throw new Error(`MiniMax Video: timeout after ${MAX_POLL_ATTEMPTS} polls, last status: ${lastStatus}`);
+  throw new Error(
+    `MiniMax Video: timeout after ${MAX_POLL_ATTEMPTS} polls, last status: ${lastStatus}`,
+  );
 }
 
 export async function testMiniMaxVideoConnectivity(

@@ -12,7 +12,10 @@ import type {
 import { generateWithSeedance, testSeedanceConnectivity } from './adapters/seedance-adapter';
 import { generateWithKling, testKlingConnectivity } from './adapters/kling-adapter';
 import { generateWithVeo, testVeoConnectivity } from './adapters/veo-adapter';
-import { generateWithMiniMaxVideo, testMiniMaxVideoConnectivity } from './adapters/minimax-video-adapter';
+import {
+  generateWithMiniMaxVideo,
+  testMiniMaxVideoConnectivity,
+} from './adapters/minimax-video-adapter';
 
 export const VIDEO_PROVIDERS: Record<VideoProviderId, VideoProviderConfig> = {
   seedance: {
