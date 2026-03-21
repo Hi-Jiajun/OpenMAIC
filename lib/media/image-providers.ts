@@ -71,8 +71,11 @@ export const IMAGE_PROVIDERS: Record<ImageProviderId, ImageProviderConfig> = {
     id: 'minimax-image',
     name: 'MiniMax Image',
     requiresApiKey: true,
-    defaultBaseUrl: 'https://api.minimax.io',
-    models: [{ id: 'image-01', name: 'Image 01' }],
+    defaultBaseUrl: 'https://api.minimaxi.com',
+    models: [
+      { id: 'image-01', name: 'Image 01' },
+      { id: 'image-01-live', name: 'Image 01 Live' },
+    ],
     supportedAspectRatios: ['16:9', '4:3', '1:1', '9:16'],
   },
 };

@@ -127,6 +127,7 @@ export interface TTSModelConfig {
   providerId: TTSProviderId;
   apiKey?: string;
   baseUrl?: string;
+  model?: string;
   voice: string;
   speed?: number;
   format?: string;

@@ -17,6 +17,7 @@ import { useI18n } from '@/lib/hooks/use-i18n';
 import { useSettingsStore } from '@/lib/store/settings';
 import {
   TTS_PROVIDERS,
+  MINIMAX_TTS_MODELS,
   getTTSVoices,
   ASR_PROVIDERS,
   getASRSupportedLanguages,
@@ -118,7 +119,7 @@ export function AudioSettings({ onSave }: AudioSettingsProps = {}) {
 
   const handleTTSProviderConfigChange = (
     providerId: TTSProviderId,
-    config: Partial<{ apiKey: string; baseUrl: string; enabled: boolean }>,
+    config: Partial<{ apiKey: string; baseUrl: string; model?: string; enabled: boolean }>,
   ) => {
     setTTSProviderConfig(providerId, config);
     onSave?.();
@@ -343,6 +344,11 @@ export function AudioSettings({ onSave }: AudioSettingsProps = {}) {
         ttsVoice: ttsVoice,
         ttsSpeed: ttsSpeed,
       };
+
+      const modelValue = ttsProvidersConfig[ttsProviderId]?.model;
+      if (modelValue && modelValue.trim()) {
+        requestBody.ttsModel = modelValue;
+      }
 
       const apiKeyValue = ttsProvidersConfig[ttsProviderId]?.apiKey;
       if (apiKeyValue && apiKeyValue.trim()) {
@@ -677,6 +683,31 @@ export function AudioSettings({ onSave }: AudioSettingsProps = {}) {
                 );
               })()}
             </>
+          )}
+
+          {ttsProviderId === 'minimax-tts' && (
+            <div className="space-y-2">
+              <Label className="text-sm">{t('settings.ttsModel')}</Label>
+              <Select
+                value={ttsProvidersConfig[ttsProviderId]?.model || 'speech-2.8-turbo'}
+                onValueChange={(value) =>
+                  handleTTSProviderConfigChange(ttsProviderId, {
+                    model: value,
+                  })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={t('settings.ttsModelPlaceholder')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {MINIMAX_TTS_MODELS.map((model) => (
+                    <SelectItem key={model.id} value={model.id}>
+                      {model.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           )}
 
           {/* Voice Selection Row */}

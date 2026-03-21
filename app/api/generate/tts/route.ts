@@ -22,12 +22,13 @@ export const maxDuration = 30;
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { text, audioId, ttsProviderId, ttsVoice, ttsSpeed, ttsApiKey, ttsBaseUrl } = body as {
+    const { text, audioId, ttsProviderId, ttsVoice, ttsSpeed, ttsModel, ttsApiKey, ttsBaseUrl } = body as {
       text: string;
       audioId: string;
       ttsProviderId: TTSProviderId;
       ttsVoice: string;
       ttsSpeed?: number;
+      ttsModel?: string;
       ttsApiKey?: string;
       ttsBaseUrl?: string;
     };
@@ -66,12 +67,13 @@ export async function POST(req: NextRequest) {
       providerId: ttsProviderId,
       voice: ttsVoice,
       speed: ttsSpeed ?? 1.0,
+      model: ttsModel,
       apiKey,
       baseUrl,
     };
 
     log.info(
-      `Generating TTS: provider=${ttsProviderId}, voice=${ttsVoice}, audioId=${audioId}, textLen=${text.length}`,
+      `Generating TTS: provider=${ttsProviderId}, model=${ttsModel || 'default'}, voice=${ttsVoice}, audioId=${audioId}, textLen=${text.length}`,
     );
 
     // Generate audio

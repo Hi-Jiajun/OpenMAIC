@@ -39,6 +39,15 @@ import type {
  * Central registry for all TTS providers.
  * Keep in sync with TTSProviderId type definition.
  */
+export const MINIMAX_TTS_MODELS = [
+  { id: 'speech-2.8-turbo', name: 'Speech 2.8 Turbo' },
+  { id: 'speech-2.8-hd', name: 'Speech 2.8 HD' },
+  { id: 'speech-2.6-turbo', name: 'Speech 2.6 Turbo' },
+  { id: 'speech-2.6-hd', name: 'Speech 2.6 HD' },
+  { id: 'speech-02-turbo', name: 'Speech 02 Turbo' },
+  { id: 'speech-02-hd', name: 'Speech 02 HD' },
+] as const;
+
 export const TTS_PROVIDERS: Record<TTSProviderId, TTSProviderConfig> = {
   'openai-tts': {
     id: 'openai-tts',
@@ -610,7 +619,7 @@ export const TTS_PROVIDERS: Record<TTSProviderId, TTSProviderConfig> = {
     id: 'minimax-tts',
     name: 'MiniMax TTS',
     requiresApiKey: true,
-    defaultBaseUrl: 'https://api.minimax.com',
+    defaultBaseUrl: 'https://api.minimaxi.com',
     icon: '/logos/minimax.svg',
     voices: [
       {

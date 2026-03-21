@@ -337,7 +337,7 @@ async function generateMiniMaxTTS(
       'Content-Type': 'application/json; charset=utf-8',
     },
     body: JSON.stringify({
-      model: 'speech-2.8-turbo',
+      model: config.model || 'speech-2.8-turbo',
       text,
       stream: false,
       output_format: 'hex',
@@ -399,6 +399,7 @@ export async function getCurrentTTSConfig(): Promise<TTSModelConfig> {
     providerId: ttsProviderId,
     apiKey: providerConfig?.apiKey,
     baseUrl: providerConfig?.baseUrl,
+    model: providerConfig?.model,
     voice: ttsVoice,
     speed: ttsSpeed,
   };
