@@ -2,7 +2,7 @@
  * MiniMax Video Generation Adapter
  * Supports: text-to-video with camera control commands
  * API: POST /v1/video_generation (submit) + GET /v1/query/video_generation?task_id=xxx (poll)
- * Docs: https://platform.minimax.io/docs/api-reference/video-generation-t2v
+ * Docs: https://platform.minimaxi.com/docs/api-reference/video-generation-t2v
  */
 
 import type {
@@ -11,7 +11,7 @@ import type {
   VideoGenerationResult,
 } from '../types';
 
-const BASE_URL = 'https://api.minimax.io';
+const BASE_URL = 'https://api.minimaxi.com';
 const POLL_INTERVAL_MS = 5000;
 const MAX_POLL_ATTEMPTS = 120; // ~10 minutes max
 
@@ -30,6 +30,18 @@ interface MiniMaxQueryResponse {
   video_width?: number;
   video_height?: number;
   base_resp: {
+    status_code: number;
+    status_msg: string;
+  };
+}
+
+interface MiniMaxFileRetrieveResponse {
+  file?: {
+    file_id: string | number;
+    download_url?: string;
+    filename?: string;
+  };
+  base_resp?: {
     status_code: number;
     status_msg: string;
   };
@@ -107,6 +119,40 @@ async function pollTaskStatus(
   return response.json() as Promise<MiniMaxQueryResponse>;
 }
 
+async function retrieveFileDownloadUrl(
+  config: VideoGenerationConfig,
+  fileId: string,
+): Promise<string> {
+  const baseUrl = (config.baseUrl || BASE_URL).replace(/\/$/, '');
+  const url = `${baseUrl}/v1/files/retrieve?file_id=${encodeURIComponent(fileId)}`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${config.apiKey}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errText = await response.text().catch(() => response.statusText);
+    throw new Error(`MiniMax Video file retrieve error: ${errText}`);
+  }
+
+  const data: MiniMaxFileRetrieveResponse = await response.json();
+  if (data.base_resp?.status_code !== 0) {
+    const code = data.base_resp?.status_code;
+    const msg = data.base_resp?.status_msg || 'unknown error';
+    throw new Error(`MiniMax Video file retrieve error ${code}: ${msg}`);
+  }
+
+  const downloadUrl = data.file?.download_url;
+  if (!downloadUrl) {
+    throw new Error(`MiniMax Video: no download_url returned. Response: ${JSON.stringify(data)}`);
+  }
+
+  return downloadUrl;
+}
+
 export async function generateWithMiniMaxVideo(
   config: VideoGenerationConfig,
   options: VideoGenerationOptions,
@@ -129,10 +175,7 @@ export async function generateWithMiniMaxVideo(
         throw new Error(`MiniMax Video: task succeeded but no file_id returned`);
       }
 
-      // Video URL construction: MiniMax uses file_id to construct download URL
-      // Format: https://api.minimax.io/v1/files/{file_id}
-      const baseUrl = (config.baseUrl || BASE_URL).replace(/\/$/, '');
-      const videoUrl = `${baseUrl}/v1/files/${result.file_id}`;
+      const videoUrl = await retrieveFileDownloadUrl(config, result.file_id);
 
       return {
         url: videoUrl,

@@ -1,7 +1,7 @@
 /**
  * MiniMax Image Generation Adapter
  * Supports: text-to-image with aspect ratio control
- * API Docs: https://platform.minimax.io/docs/api-reference/image-generation-t2i
+ * API Docs: https://platform.minimaxi.com/docs/api-reference/image-generation-t2i
  */
 
 import type {
@@ -10,7 +10,7 @@ import type {
   ImageGenerationResult,
 } from '../types';
 
-const BASE_URL = 'https://api.minimax.io';
+const BASE_URL = 'https://api.minimaxi.com';
 
 export async function generateWithMiniMaxImage(
   config: ImageGenerationConfig,

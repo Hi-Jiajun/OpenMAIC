@@ -116,17 +116,17 @@ MiniMax 快速示例：
 
 ```env
 MINIMAX_API_KEY=...
-MINIMAX_BASE_URL=https://api.minimaxi.com
+MINIMAX_BASE_URL=https://api.minimaxi.com/anthropic/v1
 DEFAULT_MODEL=minimax:MiniMax-M2.7-highspeed
 
 TTS_MINIMAX_API_KEY=...
-TTS_MINIMAX_BASE_URL=https://api.minimax.com
+TTS_MINIMAX_BASE_URL=https://api.minimaxi.com
 
 IMAGE_MINIMAX_API_KEY=...
 IMAGE_MINIMAX_BASE_URL=https://api.minimaxi.com
 
 VIDEO_MINIMAX_API_KEY=...
-VIDEO_MINIMAX_BASE_URL=https://api.minimax.io
+VIDEO_MINIMAX_BASE_URL=https://api.minimaxi.com
 ```
 
 > **推荐模型：** **Gemini 3 Flash** — 效果与速度的最佳平衡。追求最高质量可选 **Gemini 3.1 Pro**（速度较慢）。

@@ -116,14 +116,14 @@ MiniMax quick examples:
 
 ```env
 MINIMAX_API_KEY=...
-MINIMAX_BASE_URL=https://api.minimaxi.com
+MINIMAX_BASE_URL=https://api.minimaxi.com/anthropic/v1
 DEFAULT_MODEL=minimax:MiniMax-M2.7-highspeed
 
 TTS_MINIMAX_API_KEY=...
 TTS_MINIMAX_BASE_URL=https://api.minimaxi.com
 
 IMAGE_MINIMAX_API_KEY=...
-IMAGE_MINIMAX_BASE_URL=https://api.minimax.io
+IMAGE_MINIMAX_BASE_URL=https://api.minimaxi.com
 
 VIDEO_MINIMAX_API_KEY=...
 VIDEO_MINIMAX_BASE_URL=https://api.minimaxi.com
