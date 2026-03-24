@@ -683,13 +683,6 @@ export const PROVIDERS: Record<ProviderId, ProviderConfig> = {
         capabilities: { streaming: true, tools: true, vision: false },
       },
       {
-        id: 'MiniMax-M2.1-lightning',
-        name: 'MiniMax M2.1 Lightning',
-        contextWindow: 204800,
-        outputWindow: 8192,
-        capabilities: { streaming: true, tools: true, vision: false },
-      },
-      {
         id: 'MiniMax-M2.1-highspeed',
         name: 'MiniMax M2.1 Highspeed',
         contextWindow: 204800,
@@ -699,13 +692,6 @@ export const PROVIDERS: Record<ProviderId, ProviderConfig> = {
       {
         id: 'MiniMax-M2.5',
         name: 'MiniMax M2.5',
-        contextWindow: 204800,
-        outputWindow: 8192,
-        capabilities: { streaming: true, tools: true, vision: false },
-      },
-      {
-        id: 'MiniMax-M2.5-lightning',
-        name: 'MiniMax M2.5 Lightning',
         contextWindow: 204800,
         outputWindow: 8192,
         capabilities: { streaming: true, tools: true, vision: false },
